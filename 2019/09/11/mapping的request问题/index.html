@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>mapping的request问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="No mapping found for HTTP request with URI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mapping的request问题">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/mapping的request问题/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="No mapping found for HTTP request with URI">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-11T02:39:06.877Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="mapping的request问题">
+<meta name="twitter:description" content="No mapping found for HTTP request with URI">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -160,194 +164,274 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-mapping的request问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/14/ds/" class="archive-article-date">
-  	<time datetime="2019-10-14T12:31:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/14/ds/">ds</a>
+    <h1 class="article-title" itemprop="name">
+      mapping的request问题
     </h1>
   
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-w">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/11/word中页眉不同的设置方法/" class="archive-article-date">
-  	<time datetime="2019-09-11T02:43:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/11/word中页眉不同的设置方法/">word中页眉不同的设置方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/11/mapping的request问题/" class="archive-article-date">
+        
+        <a href="/2019/09/11/mapping的request问题/" class="archive-article-date">
   	<time datetime="2019-09-11T01:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-11</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/11/mapping的request问题/">mapping的request问题</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="No-mapping-found-for-HTTP-request-with-URI"><a href="#No-mapping-found-for-HTTP-request-with-URI" class="headerlink" title="No mapping found for HTTP request with URI"></a>No mapping found for HTTP request with URI</h1><a id="more"></a>
+<p>今天从早上弄到晚上，一直是这个问题，虽然说一直知道是配置上的问题，但是不知道错在了哪里。<br>这次的课题是企业的进销存管理，是大四上学期前3周要完成的课程项目。早上完成了Controller的创建：<br>@RequestMapping(“/login”)<br>       public ModelAndView Login(String account,String password,String  character,HttpSession session) {<br>             User user = userservice.login(account,password,character);<br>             ModelAndView mv = new ModelAndView();<br>             if (user != null) {<br>                    String chara = user.getAuthority();<br>                    if (chara.equals(“Buyer”)) {<br>                          mv.setViewName(“buyer”);<br>                    } else if (chara.equals(“Saler”)) {<br>                          mv.setViewName(“saler”);<br>                    } else if (chara.equals(“Stockman”)) {<br>                          mv.setViewName(“stockman”);<br>                    } else {// 系统管理员<br>                          mv.setViewName(“sysmanager”);<br>                    }<br>             }else {<br>                    mv = null;<br>             }<br>             return mv;<br>       }<br>还有Service的创建以及ServiceImple的实现：<br>Service：<br>package com.August.service;<br>import com.August.entity.User;<br>public interface UserService {<br>       public User login(String account,String password,String character);</p>
+<h2 id><a href="#" class="headerlink" title="}"></a>}</h2><p>package com.August.service.Imple;<br>import org.apache.ibatis.session.SqlSession;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Service;<br>import com.August.dao.UserDao;<br>import com.August.entity.User;<br>import com.August.service.UserService;<br>import com.August.utils.DBUtils;</p>
+<p>@Service(“userService”)<br>public class UserServiceImple implements UserService {</p>
+<pre><code>@Override
+public User login(String account, String password, String character) {
+    // TODO Auto-generated method stub
+    SqlSession sq = DBUtils.getSqlSession();
+    //获得一个代理对象
+    UserDao userdao = sq.getMapper(UserDao.class);
 
-        <div class="article-info info-on-right">
-          
-          
+    User user = null;
+    try {
+        user = userdao.getUserAfterVerification(account,password,character);
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    return user;
+}</code></pre><p>}<br>还有UserDao：<br>package com.August.dao;<br>import org.apache.ibatis.annotations.Param;<br>import com.August.entity.User;<br>public interface UserDao {<br>    public User getUserAfterVerification(@Param(“account”)String account,@Param(“password”)String password,@Param(“authority”)String authority) throws Exception;<br>}<br>当然，因为我们要用SSM框架来写，所以Dao没有Imple</p>
+<p>spring.xml配置：<br><?xml version="1.0" encoding="UTF-8"?><br><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemalocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">  </beans></p>
+<pre><code>&lt;!-- 扫描service包下所有使用注解的类型 --&gt;
+&lt;context:component-scan base-package=&quot;com.August.service,com.August.dao&quot;  /&gt;</code></pre>
 
+<p>spring-mvc配置：<br><?xml version="1.0" encoding="UTF-8"?><br><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemalocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://www.springframework.org/schema/mvc
+              http://www.springframework.org/schema/mvc/spring-mvc.xsd">  </beans></p>
+<pre><code>   &lt;!-- springmvc.xml主要配置：
+                1.注解的支持；
+                2.扫描@Controller注解所在包的配置；
+                3.视图解析器的配置
+    --&gt;
+
+&lt;!-- 1.配置注解 --&gt;
+   &lt;mvc:annotation-driven/&gt;
+
+
+   &lt;!-- 2.配置扫描,扫描指定包中的控制器
+   &lt;context:component-scan base-package=&quot;&quot;&gt;&lt;/context:component-scan&gt;
+    扫描器会扫描带有@Component@Service@Controller@Component等注解，并实现相应的操作 --&gt;
+
+   &lt;context:component-scan base-package=&quot;com.August.controller&quot;/&gt;
+
+
+   &lt;!-- 3.配置视图解析器 --&gt;
+   &lt;bean  class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+         &lt;!-- prefix代表前缀，suffix代表后缀 --&gt;
+         &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/user/&quot;&gt;&lt;/property&gt;
+         &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;&gt;&lt;/property&gt;
+   &lt;/bean&gt;
+
+
+   &lt;mvc:default-servlet-handler/&gt;</code></pre>
+
+<p>web.xml配置：<br><?xml version="1.0" encoding="UTF-8"?><br><web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemalocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0"></web-app></p>
+<pre><code>&lt;!-- 是否正确加载springmvc的配置文件 --&gt;</code></pre>  <servlet>
+       <servlet-name>springDispatcherServlet</servlet-name>
+       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <init-param>
+             <param-name>contextConfigLocation</param-name>
+             <param-value>classpath:spring*.xml</param-value>
+       </init-param>
+       <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+       <servlet-name>springDispatcherServlet</servlet-name>
+       <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+       <servlet-name>default</servlet-name>
+       <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+
+
+
+<p>而目录结构是这样的：<br>Java Resource：<br>-src<br>    –com.August<br>        —controller<br>            —-UserController.java<br>        —dao<br>            —-UserDao.interface<br>        —entity<br>            —-User.java<br>            —-user.xml<br>        —service<br>            —-Imple<br>                —–UserServiceImple.java<br>            —-UserService.java<br>        —utils<br>–log4j.properties<br>–SqlMapConfig.xml<br>-config<br>    –spring.xml<br>    –spring-mvc.xml<br>可是不管怎么样，都不能到Controller去，出现” No mapping found for HTTP request with URI [/enterprisemana/login] in DispatcherServlet with name ‘springDispatcherServlet’ “的问题。这就是DispatcherServlet找不到Controller，怎么回事？检查了spring-mvc.xml的包扫描等等，都还是不行。。检查了好久的配置文件。。后来看shoppingstreet项目中的配置，它们都是在Java Resource下的config文件夹里的，可是我不管怎么在Java Resource右键New一个Folder都不能把这个文件夹归到Java Resource下，怎么回事？没办法，重新翻看视频，发现他是在Java Resource下右键一个Source Folder就行了，😭了。。。然后我就照着它的来，并把配置文件放进去了，运行项目，不再是404错误了<br>😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭<br>😭die了</p>
+<p>后来提示的是注入失败，其实上面的配置文件spring.xml是修改过后的，所以用它是可以正常运行的，之前的包扫描不正确，所以会出现500错误，不过后来改好了。。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/1.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/4.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+            
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+
+
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yyfbk.github.io/2019/09/11/mapping的request问题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/06/java中mapper包的问题/" class="archive-article-date">
-  	<time datetime="2019-09-06T10:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/09/11/word中页眉不同的设置方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          word中页眉不同的设置方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/06/java中mapper包的问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java中mapper包的问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/06/java中mapper包的问题/">java中mapper包的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#No-mapping-found-for-HTTP-request-with-URI"><span class="toc-number">1.</span> <span class="toc-text">No mapping found for HTTP request with URI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.1.</span> <span class="toc-text">}</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/我的1文章/" class="archive-article-date">
-  	<time datetime="2019-08-24T07:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/我的1文章/">我的1文章</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-24T00:35:00.557Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -383,8 +467,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
